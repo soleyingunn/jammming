@@ -1,10 +1,11 @@
 import React from "react";
+import Tracklist from '../Tracklist/Tracklist';
 
-function SearchResults() {
+function SearchResults({songList}) {
   return (
     <div className="SearchResults">
       <h2>Results</h2>
-      {/* Add a TrackList component */}
+      <Tracklist tracks={songList} />
     </div>
   );
 }

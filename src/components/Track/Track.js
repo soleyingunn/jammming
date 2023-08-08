@@ -1,11 +1,13 @@
 import React from "react";
 
-function Track() {
+function Track({track}) {
+    console.log("Track");
+    console.log(track);
   return (
     <div className="Track">
       <div className="Track-information">
-        <h3>{/* track name will go here */}</h3>
-        <p>{/* track artist will go here */} | {/* track album will go here */}</p>
+        <h3>{track.name}</h3>
+        <p>{track.artist} | {track.album}</p>
       </div>
       <button className="Track-action">{/* + or - will go here */}</button>
     </div>

@@ -1,9 +1,12 @@
 import React from "react";
+import Track from "../Track/Track";
 
-function Tracklist() {
+
+function Tracklist({tracks}) {
+
   return (
     <div className="Tracklist">
-      {/* You will add a map method that renders a set of Track components */}
+        {tracks.map(t => <Track key={t.id} track={t} />)}
     </div>
   );
 }
