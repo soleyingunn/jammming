@@ -4,24 +4,41 @@ import './App.css';
 import { getTestData } from './services/DataService';
 import { useEffect, useState } from 'react';
 import SearchResults from './components/SearchResults/SearchResults';
+import Playlist from './components/Playlist/Playlist';
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
 
-  const [testData, setTestData] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [playlist, setPlaylist] = useState({name: "New Playlist", tracks: []});
+
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTestData();
-      setTestData(data);
+      setSearchResults(data);
     };
-
     fetchData();
-  
   }, [])
+
+  function handleAddTrack(track) {
+    const newPlaylist = {...playlist};
+    const playlistTracks = [...playlist.tracks];
+    newPlaylist.tracks = playlistTracks;
+    playlistTracks.push(track);
+    setPlaylist(newPlaylist);
+  }
+
 
   return (
     <div className="App">
-      <SearchResults songList={testData} />
+      <div className="column">
+        <SearchBar />
+        <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack}/>
+      </div>
+      <div className="column">
+        <Playlist playlist={playlist} />
+      </div>
     </div>
   );
 }

@@ -2,11 +2,15 @@ import React from "react";
 import Track from "../Track/Track";
 
 
-function Tracklist({tracks}) {
+function Tracklist({tracklistTracks, onTrackAction}) {
+
+  console.log('tracklistTracks: ', tracklistTracks);
 
   return (
     <div className="Tracklist">
-        {tracks.map(t => <Track key={t.id} track={t} />)}
+        {tracklistTracks.map(t => 
+          <Track key={t.id} track={t} onTrackAction={onTrackAction} />
+        )}
     </div>
   );
 }

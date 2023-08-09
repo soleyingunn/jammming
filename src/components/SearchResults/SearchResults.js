@@ -1,11 +1,12 @@
 import React from "react";
 import Tracklist from '../Tracklist/Tracklist';
 
-function SearchResults({songList}) {
+function SearchResults({searchResultsTracks, onAddTrack}) {
   return (
     <div className="SearchResults">
       <h2>Results</h2>
-      <Tracklist tracks={songList} />
+      <Tracklist tracklistTracks={searchResultsTracks} onTrackAction={onAddTrack}/>
+      
     </div>
   );
 }

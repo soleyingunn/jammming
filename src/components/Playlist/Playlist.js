@@ -1,10 +1,21 @@
 import React from "react";
+import Tracklist from '../Tracklist/Tracklist';
+import { useState } from 'react';
 
-function Playlist() {
+function Playlist({playlist}) {
+/*     const [playlistName, setPlaylistName] = useState('New Playlist');
+
+    function handleNameChange(e) {
+        console.log(e.target.value);
+        const newName = e.target.value;
+        setPlaylistName(newName);
+    } */
+    
   return (
     <div className="Playlist">
-      <input defaultValue={"New Playlist"} />
-      {/* Add a TrackList component */}
+      <input /* onChange={handleNameChange}  */defaultValue={"New Playlist"} />
+      <Tracklist tracklistTracks={playlist.tracks} />
+
       <button className="Playlist-save">SAVE TO SPOTIFY</button>
     </div>
   );
