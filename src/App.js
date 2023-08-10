@@ -22,12 +22,18 @@ function App() {
   }, [])
 
   function handleAddTrack(track) {
+    console.log('track:', track);
     const newPlaylist = {...playlist};
     const playlistTracks = [...playlist.tracks];
     newPlaylist.tracks = playlistTracks;
     playlistTracks.push(track);
     setPlaylist(newPlaylist);
   }
+
+  function handleSavePlaylist(playlist) {
+    console.log('handleSavePlaylist');
+    console.log('playlist:', playlist);
+  };
 
 
   return (
@@ -37,7 +43,7 @@ function App() {
         <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack}/>
       </div>
       <div className="column">
-        <Playlist playlist={playlist} />
+        <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} />
       </div>
     </div>
   );

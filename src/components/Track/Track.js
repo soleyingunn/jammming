@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./Track.module.css";
 
 function Track({track, onTrackAction}) {
-    console.log("Track");
-    console.log(track);
 
-
+  function handleTrackAction() {
+    console.log('Track handleTrackAction');
+    onTrackAction(track);
+  }
 
   return (
     <div className={styles.track}>
@@ -13,7 +14,7 @@ function Track({track, onTrackAction}) {
         <h3>{track.name}</h3>
         <p>{track.artist} | {track.album}</p>
       </div>
-      <button className={styles.trackAction} onClick={onTrackAction}>{"+"}</button>
+      <button className={styles.trackAction} onClick={handleTrackAction}>{"+"}</button>
     </div>
   );
 }
