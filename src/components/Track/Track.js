@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./Track.module.css";
+import SearchResults from "../SearchResults/SearchResults";
 
-function Track({track, onTrackAction}) {
+function Track({track, onTrackAction, symbol}) {
 
   function handleTrackAction() {
     console.log('Track handleTrackAction');
@@ -14,7 +15,7 @@ function Track({track, onTrackAction}) {
         <h3>{track.name}</h3>
         <p>{track.artist} | {track.album}</p>
       </div>
-      <button className={styles.trackAction} onClick={handleTrackAction}>{"+"}</button>
+      <button className={styles.trackAction} onClick={handleTrackAction}>{symbol}</button>
     </div>
   );
 }

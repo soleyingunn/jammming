@@ -30,9 +30,21 @@ function App() {
     setPlaylist(newPlaylist);
   }
 
+  function handleRemoveTrack(track) {
+    console.log('handleRemoveTrack');
+    const newPlaylist = {...playlist};
+    const playlistTracks = [...playlist.tracks];
+    newPlaylist.tracks = playlistTracks;
+    playlistTracks.splice(track, 1);
+    setPlaylist(newPlaylist);
+  };
+
   function handleSavePlaylist(playlist) {
     console.log('handleSavePlaylist');
     console.log('playlist:', playlist);
+    const uriArray = [];
+    playlist.tracks.map((t) => uriArray.push(t.uri));
+    console.log('uriArray:', uriArray);
   };
 
 
@@ -43,7 +55,7 @@ function App() {
         <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack}/>
       </div>
       <div className="column">
-        <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} />
+        <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} onRemoveTrack={handleRemoveTrack} />
       </div>
     </div>
   );

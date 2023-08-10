@@ -9,7 +9,8 @@ const getTestData = () => {
                 id: i,
                 name: "Track " + i,
                 artist: "Artist " + i,
-                album: "Album " + i
+                album: "Album " + i,
+                uri: "spotify:track:" + i
             });
         };
 
