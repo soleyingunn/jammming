@@ -1,17 +1,18 @@
 import React from "react";
-import logo from './logo.svg';
 import './App.css';
-import { getTestData } from './services/DataService';
 import { useEffect, useState } from 'react';
+import queryString from 'query-string';
+import { getTestData } from './services/DataService';
+import SpotifyService from "./services/SpotifyService";
 import SearchResults from './components/SearchResults/SearchResults';
 import Playlist from './components/Playlist/Playlist';
 import SearchBar from "./components/SearchBar/SearchBar";
+
 
 function App() {
 
   const [searchResults, setSearchResults] = useState([]);
   const [playlist, setPlaylist] = useState({name: "New Playlist", tracks: []});
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +46,13 @@ function App() {
     const uriArray = [];
     playlist.tracks.map((t) => uriArray.push(t.uri));
     console.log('uriArray:', uriArray);
+
+    if(!SpotifyService.isAuthorized()){
+      SpotifyService.authorize();
+    }else{
+      console.log('save!');
+    }
+
   };
 
 
