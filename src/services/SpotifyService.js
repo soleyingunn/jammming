@@ -29,7 +29,7 @@ const SpotifyService = {
         return localStorage.getItem("access_token") ? true : false;
     },
     authorize: function () {
-        const client_id = "380b9dfd4d4d4dcb935a8b367c7aa02a";
+        const client_id = process.env.SPOTIFY_APP_ID;
         const redirect_uri = "http://localhost:3000";
         const scope = "user-read-private user-read-email";
         const state = generateRandomString(16);
