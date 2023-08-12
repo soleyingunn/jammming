@@ -14,13 +14,6 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playlist, setPlaylist] = useState({name: "New Playlist", tracks: []});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getTestData();
-      setSearchResults(data);
-    };
-    fetchData();
-  }, [])
 
   function handleAddTrack(track) {
     console.log('track:', track);
@@ -52,15 +45,22 @@ function App() {
     }else{
       console.log('save!');
     }
-
   };
 
+  function handleSearch(term) {
+    console.log('handleSearch');
+    console.log('term:', term);
+    SpotifyService.search(term).then((data) => {
+      console.log('data:', data);
+      setSearchResults(data);
+    });
+  }
 
   return (
     <div className="App">
       <div className="column">
-        <SearchBar />
-        <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack}/>
+        <SearchBar onSearch={handleSearch} />
+        <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack} />
       </div>
       <div className="column">
         <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} onRemoveTrack={handleRemoveTrack} />

@@ -44,6 +44,37 @@ const SpotifyService = {
             + `&state=${encodeURIComponent(state)}`;
 
         window.location = url;
+    },
+    search: function(searchTerm) {
+        // This stores the access token that Spotify gives us after we authorize
+        const access_token = localStorage.getItem("access_token");
+        // the url is the spotify search endpoint we want to hit 
+        const url = `https://api.spotify.com/v1/search?q=${searchTerm}&type=track`;
+        // This is the options object that tells fetch to include our access token in the request headers
+        const options = {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        };
+        // fetch sends a request to the url and returns a promise. 
+        return fetch(url, options)
+            // we call .then on the promise and pass it a callback function that takes the response and converts it to json
+            .then(response => response.json())
+            // we call .then on the promise and pass it a callback function that takes the json and returns the array of tracks
+            .then(jsonResponse => {
+                if (!jsonResponse.tracks) {
+                    return [];
+                }
+                return jsonResponse.tracks.items.map(track => {
+                    return {
+                        id: track.id,
+                        name: track.name,
+                        artist: track.artists[0].name,
+                        album: track.album.name,
+                        uri: track.uri
+                    };
+                });
+            });
     }
 }
 
