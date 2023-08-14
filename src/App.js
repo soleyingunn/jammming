@@ -44,6 +44,10 @@ function App() {
       SpotifyService.authorize();
     }else{
       console.log('save!');
+      SpotifyService.save(playlist).then((data) => {
+        console.log('data:', data);
+        
+      });
     }
   };
 
