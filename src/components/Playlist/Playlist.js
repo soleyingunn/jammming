@@ -5,6 +5,8 @@ import styles from "./Playlist.module.css"
 
 function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
 
+  console.log('playlist.name', playlist.name);
+
   const [playlistName, setPlaylistName] = useState(playlist.name);
 
   function handleNameChange(e) {
@@ -17,6 +19,8 @@ function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
     playlist.name = playlistName;
     onSavePlaylist(playlist);
   }
+
+  console.log('playlistName', playlistName);
 
   return (
     <div className={styles.Playlist}>

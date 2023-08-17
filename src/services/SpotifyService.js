@@ -190,13 +190,51 @@ const SpotifyService = {
         console.log('User Playlists:', playlistsData);
         callback(playlistsData);
     },
-    loadPlaylist: function() {
-        // make a fetch call to load the specified playlist
-        // i need to pass the playlist as a param
-        // find out what the endpoint is to load a playlist (spotify documentation or other)
-        // either use callback after the playlist has loaded to return the playlist data form this function
-        // or a return statement (preferred)
-    }
+    loadPlaylist: async function(playlistId) {
+        const access_token = localStorage.getItem("access_token");
+        const options = {
+            headers: {
+            Authorization: `Bearer ${access_token}`,
+            },
+        };
+
+        try {
+            // Fetch the playlist details
+            const getPlaylistResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, options);
+            const playlistData = await getPlaylistResponse.json();
+
+            // Fetch the tracks within the playlist
+            const getTracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, options);
+            const tracksData = await getTracksResponse.json();
+
+            // Extract relevant data and return it
+            const tracks = tracksData.items.map(item => ({
+                id: item.track.id,
+                name: item.track.name,
+                artist: item.track.artists[0].name,
+                album: item.track.album.name,
+                uri: item.track.uri,
+            }));
+
+            const playlist = {
+                id: playlistData.id,
+                name: playlistData.name,
+                tracks: tracks,
+            };
+
+            return playlist;
+            } catch (error) {
+                console.error('Error loading playlist:', error);
+            }
+        },
+
+    // loadPlaylist: function() {
+    //     // make a fetch call to load the specified playlist
+    //     // i need to pass the playlist as a param
+    //     // find out what the endpoint is to load a playlist (spotify documentation or other)
+    //     // either use callback after the playlist has loaded to return the playlist data form this function
+    //     // or a return statement (preferred)
+    // }
 }
 
 export default SpotifyService;

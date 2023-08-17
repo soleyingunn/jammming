@@ -48,7 +48,10 @@ function App() {
       console.log('save!');
       SpotifyService.save(playlist).then((data) => {
         console.log('data:', data);
-        
+        SpotifyService.getPlaylists((playlists) => {
+          console.log("myPlaylists: ", playlists)
+          setPlaylistsData(playlists.items);
+        })
       });
     }
   };
@@ -63,7 +66,28 @@ function App() {
   };
 
   function handleSelectPlaylist(playlist) {
+    SpotifyService.loadPlaylist(playlist.id).then((data) => {
+      if (data) {
+        console.log('Loaded Playlist:', data);
+        // Extract relevant playlist data (if needed)
+        const formattedData = {
+          name: data.name,
+          tracks: data.tracks
+        };
+        // Perform any additional processing on formattedData
+        // Set the playlist state variable using the formatted data
+        setPlaylist(formattedData);
+  
+        console.log('Loaded Playlist:', formattedData);
+      } else {
+        console.log('Failed to load playlist.');
+      }
+    });
+  
+    // Rest of your code
     console.log("playlist:", playlist);
+    console.log("playlist.id:", playlist.id);
+  
     // call SpotifyService.loadPlaylist(playlist)
     // console.log(loadedPlaylist that I get back from SpotifyService.loadPlaylist(playlist))
     // create a new object with a name and tracks
