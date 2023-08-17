@@ -25,7 +25,7 @@ function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
   return (
     <div className={styles.Playlist}>
       <input className="inputField" onChange={handleNameChange} placeholder="New Playlist" />
-      <button className={styles.SaveButton} onClick={handleSavePlaylist}>
+      <button className="actionButton" onClick={handleSavePlaylist}>
         <span className={styles.icon}></span> 
       </button>
       <Tracklist tracklistTracks={playlist.tracks} onTrackAction={onRemoveTrack} symbol="-" />

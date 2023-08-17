@@ -10,7 +10,7 @@ function Track({track, onTrackAction, symbol}) {
   }
 
   return (
-    <div className={styles.track}>
+    <div className={styles.track + ' listItem'}>
       <div className={styles.trackInformation}>
         <h3>{track.name}</h3>
         <p>{track.artist} | {track.album}</p>

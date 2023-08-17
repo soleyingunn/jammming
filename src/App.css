@@ -7,7 +7,8 @@ html, body {
 
 .App {
   display: flex;
-  text-align: center;
+  /*text-align: center;*/
+  justify-content: space-evenly;
   background: url('/public/backgroundimg.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -18,12 +19,14 @@ html, body {
 }
 
 .column {
-  width: 50%;
+  width: 31%;
   text-align: left;
   background: rgba(255, 255, 255, 0.2);
-  padding: 20px;
-  margin: 20px;
+  /*padding: 20px;*/
+  margin: 20px 0;
   border-radius: 10px;
+  overflow: scroll;
+
 }
 
 .inputField {
@@ -31,9 +34,10 @@ html, body {
   background: rgba(255, 255, 255, 0.5);
   border: none;
   border-radius: 50px;
-  padding: 1rem 1.5rem;
-  width: calc(100% - 3rem);
+  padding: 1rem 2.7rem 1rem 1.5rem;
+  width: calc(100% - 98px);
   outline-color: purple;
+  margin: 15px;
 }
 
 .inputField:focus {
@@ -45,10 +49,35 @@ html, body {
 
 }
 
+.actionButton {
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 22px;
+  top: 21px;
+  cursor: pointer;
+}
+
 button:hover .icon{
   filter:invert(100%);
 }
 
 button:hover{
   background-color: rgb(208, 0, 146);
+}
+
+.listItem{
+  padding: 10px 15px;
+  cursor:pointer;
+}
+
+.listItem:hover{
+  background-color: rgba(255,255,255,0.2);
+}
+
+.listItem h3{
+  margin:0;
 }

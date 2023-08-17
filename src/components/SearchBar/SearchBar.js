@@ -23,8 +23,8 @@ function SearchBar({onSearch}) {
 
   return (
     <div className={styles.searchBar}>
-      <input className="inputField" onChange={handleSearchChange} placeholder="Enter A Song, Album, or Artist" type="text"/>
-      <button className={styles.searchButton} onClick={handleButton}>
+      <input className="inputField" onKeyUp={handleSearchChange} placeholder="Enter A Song, Album, or Artist" type="text"/>
+      <button className="actionButton" onClick={handleButton}>
         <span className={styles.icon}></span> 
       </button>
     </div>
