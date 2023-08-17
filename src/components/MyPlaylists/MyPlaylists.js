@@ -22,7 +22,7 @@ function MyPlaylists({myPlaylists, handleSelectPlaylist}) {
         setPlaylists(playlists);
     }, [searchTerm]);
 
-    if(playlists.length==0 && myPlaylists.length>0){
+    if(playlists.length==0 && myPlaylists?.length>0){
         setPlaylists(myPlaylists);
     }
 
