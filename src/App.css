@@ -1,3 +1,10 @@
+html, body {
+  height: 100%;
+}
+#root {
+  height: 100%;
+}
+
 .App {
   display: flex;
   text-align: center;
@@ -7,6 +14,7 @@
   -o-background-size: cover;
   background-size: cover;
   color: white;
+  height: 100%;
 }
 
 .column {
@@ -16,4 +24,31 @@
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
+}
+
+.inputField {
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 1.5rem;
+  width: calc(100% - 3rem);
+  outline-color: purple;
+}
+
+.inputField:focus {
+  background: rgba(255, 255, 255, 1);
+}
+
+.inputField::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+
+}
+
+button:hover .icon{
+  filter:invert(100%);
+}
+
+button:hover{
+  background-color: rgb(208, 0, 146);
 }

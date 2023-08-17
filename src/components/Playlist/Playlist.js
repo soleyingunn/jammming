@@ -1,6 +1,7 @@
 import React from "react";
 import Tracklist from '../Tracklist/Tracklist';
 import { useState } from 'react';
+import styles from "./Playlist.module.css"
 
 function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
 
@@ -18,11 +19,12 @@ function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
   }
 
   return (
-    <div className="Playlist">
-      <input onChange={handleNameChange} defaultValue={"New Playlist"} />
+    <div className={styles.Playlist}>
+      <input className="inputField" onChange={handleNameChange} placeholder="New Playlist" />
+      <button className={styles.SaveButton} onClick={handleSavePlaylist}>
+        <span className={styles.icon}></span> 
+      </button>
       <Tracklist tracklistTracks={playlist.tracks} onTrackAction={onRemoveTrack} symbol="-" />
-
-      <button className="Playlist-save" onClick={handleSavePlaylist}>SAVE TO SPOTIFY</button>
     </div>
   );
 }

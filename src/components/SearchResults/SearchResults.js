@@ -3,11 +3,12 @@ import Tracklist from '../Tracklist/Tracklist';
 
 function SearchResults({searchResultsTracks, onAddTrack}) {
   return (
-    <div className="SearchResults">
-      <h2>Results</h2>
-      <Tracklist tracklistTracks={searchResultsTracks} onTrackAction={onAddTrack} symbol="+"/>
-      
-    </div>
+    searchResultsTracks.length > 0 && (
+      <div className="SearchResults">
+        <h2>Results</h2>
+        <Tracklist tracklistTracks={searchResultsTracks} onTrackAction={onAddTrack} symbol="+"/>
+      </div>
+      )
   );
 }
 

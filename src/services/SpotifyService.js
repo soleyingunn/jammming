@@ -26,16 +26,30 @@ if(queryParams.access_token){
             Authorization: `Bearer ${access_token}`
         }
     };
-    const getUserProfile = fetch("https://api.spotify.com/v1/me", options)
-    // when we call fetch, it returns a promise and the resolve value is the response object
-    // then we need to get the json from the response object
-        .then(response => response.json())
-        // the data is the json from the response
-        // the data is the user profile (my spotify profile in this case/ then whatever user logs in to use the playlist app)
-        .then(data => {
-            console.log('data:', data);
-            localStorage.setItem("profile", JSON.stringify(data));
-        })
+    // const getUserProfile = await fetch("https://api.spotify.com/v1/me", options)
+    // // when we call fetch, it returns a promise and the resolve value is the response object
+    // // then we need to get the json from the response object
+    //     .then(response => response.json())
+    //     // the data is the json from the response
+    //     // the data is the user profile (my spotify profile in this case/ then whatever user logs in to use the playlist app)
+    //     .then(data => {
+    //         console.log('data:', data);
+    //         localStorage.setItem("profile", JSON.stringify(data));
+    //     });
+
+    try {
+        const getUserProfileResponse = await fetch("https://api.spotify.com/v1/me", options);
+        const userProfileData = await getUserProfileResponse.json();
+        console.log('User Profile:', userProfileData);
+        localStorage.setItem("profile", JSON.stringify(userProfileData));
+    
+        // moved the second part to "getPlaylists"
+    
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+  
+
 }
 
 const SpotifyService = {
@@ -158,7 +172,30 @@ const SpotifyService = {
                 };
                 // this fetch saves the playlist with the tracks we picked in our playlist
                 return fetch(url, options);
+                // need to update this method so that it updates an existing playlist line 161-174
+                // when I pass a playlist that I want to update I need to include the id of the playlist 
+                // when it gets passed into this method
             });
+    },
+    getPlaylists: async function(callback) {
+        const access_token = localStorage.getItem("access_token");
+        const options = {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        };
+        // Now let's fetch the user's playlists
+        const getPlaylistsResponse = await fetch("https://api.spotify.com/v1/me/playlists", options);
+        const playlistsData = await getPlaylistsResponse.json();
+        console.log('User Playlists:', playlistsData);
+        callback(playlistsData);
+    },
+    loadPlaylist: function() {
+        // make a fetch call to load the specified playlist
+        // i need to pass the playlist as a param
+        // find out what the endpoint is to load a playlist (spotify documentation or other)
+        // either use callback after the playlist has loaded to return the playlist data form this function
+        // or a return statement (preferred)
     }
 }
 

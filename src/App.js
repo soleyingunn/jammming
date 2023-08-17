@@ -7,12 +7,14 @@ import SpotifyService from "./services/SpotifyService";
 import SearchResults from './components/SearchResults/SearchResults';
 import Playlist from './components/Playlist/Playlist';
 import SearchBar from "./components/SearchBar/SearchBar";
+import MyPlaylists from './components/MyPlaylists/MyPlaylists';
 
 
 function App() {
 
   const [searchResults, setSearchResults] = useState([]);
   const [playlist, setPlaylist] = useState({name: "New Playlist", tracks: []});
+  const [playlistsData, setPlaylistsData] = useState([]);
 
 
   function handleAddTrack(track) {
@@ -58,7 +60,30 @@ function App() {
       console.log('data:', data);
       setSearchResults(data);
     });
-  }
+  };
+
+  function handleSelectPlaylist(playlist) {
+    console.log("playlist:", playlist);
+    // call SpotifyService.loadPlaylist(playlist)
+    // console.log(loadedPlaylist that I get back from SpotifyService.loadPlaylist(playlist))
+    // create a new object with a name and tracks
+    // maybe multiple lines that create the right data structure
+    // set the playlist state variable
+    // format the data right so I don't need to update Playlist.js
+
+  };
+
+
+
+  useEffect(() => {
+    if (playlistsData?.length === 0) {
+      SpotifyService.getPlaylists((playlists) => {
+        console.log("myPlaylists: ", playlists)
+        setPlaylistsData(playlists.items);
+      });
+    }
+  });
+
 
   return (
     <div className="App">
@@ -69,7 +94,10 @@ function App() {
       <div className="column">
         <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} onRemoveTrack={handleRemoveTrack} />
       </div>
-    </div>
+      <div className="column">
+        <MyPlaylists myPlaylists={playlistsData} handleSelectPlaylist={handleSelectPlaylist} />
+      </div>
+    </div>  
   );
 }
 

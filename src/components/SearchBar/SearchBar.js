@@ -22,9 +22,11 @@ function SearchBar({onSearch}) {
   }
 
   return (
-    <div className="SearchBar">
-      <input onChange={handleSearchChange} placeholder="Enter A Song, Album, or Artist" />
-      <button className={styles.SearchButton} onClick={handleButton}>SEARCH</button>
+    <div className={styles.searchBar}>
+      <input className="inputField" onChange={handleSearchChange} placeholder="Enter A Song, Album, or Artist" type="text"/>
+      <button className={styles.searchButton} onClick={handleButton}>
+        <span className={styles.icon}></span> 
+      </button>
     </div>
   );
 }
