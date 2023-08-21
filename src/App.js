@@ -17,7 +17,7 @@ function App() {
   const [playlistsData, setPlaylistsData] = useState([]);
 
 
-  function handleAddTrack(track) {
+  function handleAddTrack(i, track) {
     console.log('track:', track);
     const newPlaylist = {...playlist};
     const playlistTracks = [...playlist.tracks];
@@ -26,12 +26,13 @@ function App() {
     setPlaylist(newPlaylist);
   }
 
-  function handleRemoveTrack(track) {
+  function handleRemoveTrack(i, track) {
     console.log('handleRemoveTrack');
+    console.log(i, track);
     const newPlaylist = {...playlist};
     const playlistTracks = [...playlist.tracks];
     newPlaylist.tracks = playlistTracks;
-    playlistTracks.splice(track, 1);
+    playlistTracks.splice(i, 1);
     setPlaylist(newPlaylist);
   };
 

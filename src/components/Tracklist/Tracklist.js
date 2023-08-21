@@ -4,13 +4,14 @@ import Track from "../Track/Track";
 
 function Tracklist({tracklistTracks, onTrackAction, symbol}) {
 
-  console.log('tracklistTracks: ', tracklistTracks);
-
+  function handleTrackAction(i, track) {
+    onTrackAction(i, track);
+  }
 
   return (
     <div className="Tracklist">
         {tracklistTracks.map((t, i) => 
-          <Track key={i} track={t} onTrackAction={onTrackAction} symbol={symbol} />
+          <Track key={i} track={t} onTrackAction={() => {handleTrackAction(i, t);}} symbol={symbol} />
         )}
     </div>
   );

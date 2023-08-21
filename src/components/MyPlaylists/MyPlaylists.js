@@ -8,14 +8,12 @@ function MyPlaylists({myPlaylists, handleSelectPlaylist}) {
     const [searchTerm, setSearchTerm] = useState("");
 
     function handleFilterPlaylists(e) {
-        if(e.keyCode === 13) {
             console.log('handleFilterPlaylists');
             console.log('e.target.value', e.target.value);
             setSearchTerm(e.target.value);
-            const filteredPlaylists = myPlaylists.filter(playlist => playlist.name.includes(e.target.value));
+            const filteredPlaylists = myPlaylists.filter(playlist => playlist.name.toLowerCase().includes(e.target.value.toLowerCase()));
             console.log('filteredPlaylists', filteredPlaylists);
             setPlaylists(filteredPlaylists);
-        }
     }
 
     useEffect(() => {
