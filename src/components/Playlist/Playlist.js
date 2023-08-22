@@ -1,30 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tracklist from '../Tracklist/Tracklist';
 import { useState } from 'react';
 import styles from "./Playlist.module.css"
 
 function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
 
-  console.log('playlist.name', playlist.name);
-
-  const [playlistName, setPlaylistName] = useState(playlist.name);
-
-  function handleNameChange(e) {
-    console.log('handleNameChange');
-    setPlaylistName(e.target.value);
-  }
+  const [playlistName, setPlaylistName] = useState("");
 
   function handleSavePlaylist() {
-    console.log('handleSavePlaylist');
     playlist.name = playlistName;
     onSavePlaylist(playlist);
   }
 
-  console.log('playlistName', playlistName);
+  function handleNameChange(e) {
+    setPlaylistName(e.target.value);
+  }
+
+  useEffect(() => {
+    setPlaylistName(playlist.name);
+  }, [playlist]); 
 
   return (
     <div className={styles.Playlist}>
-      <input className="inputField" onChange={handleNameChange} placeholder="New Playlist" />
+      <input className="inputField" onChange={handleNameChange} value={playlistName} placeholder="New Playlist" />
       <button className="actionButton" onClick={handleSavePlaylist}>
         <span className={styles.icon}></span> 
       </button>

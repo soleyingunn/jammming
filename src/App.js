@@ -13,7 +13,7 @@ import MyPlaylists from './components/MyPlaylists/MyPlaylists';
 function App() {
 
   const [searchResults, setSearchResults] = useState([]);
-  const [playlist, setPlaylist] = useState({name: "New Playlist", tracks: []});
+  const [playlist, setPlaylist] = useState({name: "", tracks: []});
   const [playlistsData, setPlaylistsData] = useState([]);
 
 
@@ -78,7 +78,7 @@ function App() {
         // Perform any additional processing on formattedData
         // Set the playlist state variable using the formatted data
         setPlaylist(formattedData);
-  
+        
         console.log('Loaded Playlist:', formattedData);
       } else {
         console.log('Failed to load playlist.');
