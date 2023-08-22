@@ -8,7 +8,7 @@ function SearchResults({searchResultsTracks, onAddTrack}) {
     searchResultsTracks.length > 0 && (
       <div className={styles.searchResults}>
         <h2>Results</h2>
-        <Tracklist tracklistTracks={searchResultsTracks} onTrackAction={onAddTrack} symbol="+"/>
+        <Tracklist heightOffset="200px" tracklistTracks={searchResultsTracks} onTrackAction={onAddTrack} symbol="+"/>
       </div>
       )
   );

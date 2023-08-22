@@ -26,10 +26,12 @@ function MyPlaylists({myPlaylists, handleSelectPlaylist}) {
 
   return (
     <div className="MyPlaylists">
-        <input className="inputField" onKeyUp={handleFilterPlaylists} placeholder="Find a Playlist"/>
-      {playlists?.map((playlist, i) =>
-          <div key={i} className="listItem" onClick={()=>{handleSelectPlaylist(playlist);}} ><h3>{playlist.name}</h3></div>
-        )}
+      <input className="inputField" onKeyUp={handleFilterPlaylists} placeholder="Find a Playlist"/>
+      <div className={styles.listContainer}>
+        {playlists?.map((playlist, i) =>
+            <div key={i} className="listItem" onClick={()=>{handleSelectPlaylist(playlist);}} ><h3>{playlist.name}</h3></div>
+          )}
+      </div>
     </div>
   );
 }
