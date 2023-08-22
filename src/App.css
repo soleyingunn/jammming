@@ -6,15 +6,46 @@ html, body {
 }
 
 .App {
-  display: flex;
-  /*text-align: center;*/
-  justify-content: space-evenly;
   background: url('/public/backgroundimg.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   color: white;
+  height: 100%;
+}
+
+.header {
+  position: relative;
+}
+
+.header h1 {
+  text-align: center;
+  margin: 0;
+  padding-top: 15px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.highlight { 
+  color: black;
+}
+
+.avatar {
+  background: url('/public/heartIcon.png') no-repeat center center;
+  background-size: 48px;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  border: 4px solid rebeccapurple;
+  position: absolute;
+  right: 16px;
+  top: 10px;
+}
+
+.main {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
   height: 100%;
 }
 

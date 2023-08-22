@@ -109,19 +109,33 @@ function App() {
     }
   });
 
+  function handleLogin() {
+    console.log('handleLogin');
+    if(!SpotifyService.isAuthorized()){
+      SpotifyService.authorize();
+    }else{
+      console.log('Already logged in!');
+    }
+  }
 
   return (
     <div className="App">
-      <div className="column">
-        <SearchBar onSearch={handleSearch} />
-        <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack} />
-      </div>
-      <div className="column">
-        <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} onRemoveTrack={handleRemoveTrack} />
-      </div>
-      <div className="column">
-        <MyPlaylists myPlaylists={playlistsData} handleSelectPlaylist={handleSelectPlaylist} />
-      </div>
+      <header className="header">
+        <h1>ja<span className="highlight">mmm</span>ing</h1>
+        <button className="avatar" onClick={handleLogin}></button>
+      </header>
+      <main className="main">
+        <div className="column">
+          <SearchBar onSearch={handleSearch} />
+          <SearchResults searchResultsTracks={searchResults} onAddTrack={handleAddTrack} />
+        </div>
+        <div className="column">
+          <Playlist playlist={playlist} onSavePlaylist={handleSavePlaylist} onRemoveTrack={handleRemoveTrack} />
+        </div>
+        <div className="column">
+          <MyPlaylists myPlaylists={playlistsData} handleSelectPlaylist={handleSelectPlaylist} />
+        </div>
+      </main>
     </div>  
   );
 }
