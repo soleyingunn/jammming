@@ -15,6 +15,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [playlist, setPlaylist] = useState({name: "", tracks: []});
   const [playlistsData, setPlaylistsData] = useState([]);
+  const [buttonStyle, setButtonStyle] = useState({});
 
 
   function handleAddTrack(i, track) {
@@ -85,10 +86,6 @@ function App() {
       }
     });
   
-    // Rest of your code
-    console.log("playlist:", playlist);
-    console.log("playlist.id:", playlist.id);
-  
     // call SpotifyService.loadPlaylist(playlist)
     // console.log(loadedPlaylist that I get back from SpotifyService.loadPlaylist(playlist))
     // create a new object with a name and tracks
@@ -103,26 +100,42 @@ function App() {
   useEffect(() => {
     if (playlistsData?.length === 0) {
       SpotifyService.getPlaylists((playlists) => {
-        console.log("myPlaylists: ", playlists)
         setPlaylistsData(playlists.items);
       });
     }
   });
 
+
   function handleLogin() {
-    console.log('handleLogin');
     if(!SpotifyService.isAuthorized()){
       SpotifyService.authorize();
-    }else{
-      console.log('Already logged in!');
+    } else {
+      SpotifyService.logout();
     }
   }
+
+  useEffect(()=>{
+    const profile = localStorage.getItem("profile");
+
+    if(profile){
+      const parsedProfile = JSON.parse(profile);
+      const profileAvatar = parsedProfile?.images[0].url;
+      
+      const buttonStyle = {
+        backgroundImage: `url('${profileAvatar}')`,
+        opacity: 1
+      };
+
+      setButtonStyle(buttonStyle);
+    }
+
+  }, []);
 
   return (
     <div className="App">
       <header className="header">
         <h1>ja<span className="highlight">mmm</span>ing</h1>
-        <button className="avatar" onClick={handleLogin}></button>
+        <button style={buttonStyle} className="avatar" onClick={handleLogin}></button>
       </header>
       <main className="main">
         <div className="column">

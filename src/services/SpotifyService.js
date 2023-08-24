@@ -79,6 +79,11 @@ const SpotifyService = {
 
         window.location = url;
     },
+    logout: function () {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("profile");
+        window.location = "/";
+    },
     // the search is GET(ting) data from the Spotify API while the save is POST(ing) data to the Spotify API
     search: function(searchTerm) {
         // This stores the access token that Spotify gives us after we authorize
@@ -227,6 +232,7 @@ const SpotifyService = {
                 console.error('Error loading playlist:', error);
             }
         },
+
 
     // loadPlaylist: function() {
     //     // make a fetch call to load the specified playlist

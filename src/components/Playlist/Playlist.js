@@ -26,7 +26,7 @@ function Playlist({playlist, onSavePlaylist, onRemoveTrack}) {
       <button className="actionButton" onClick={handleSavePlaylist}>
         <span className={styles.icon}></span> 
       </button>
-      <Tracklist heightOffset="130px" tracklistTracks={playlist.tracks} onTrackAction={onRemoveTrack} symbol="-" />
+      <Tracklist heightOffset="182px" tracklistTracks={playlist.tracks} onTrackAction={onRemoveTrack} symbol="-" />
     </div>
   );
 }
