@@ -41,8 +41,9 @@ if(queryParams.access_token){
         const getUserProfileResponse = await fetch("https://api.spotify.com/v1/me", options);
         const userProfileData = await getUserProfileResponse.json();
         console.log('User Profile:', userProfileData);
-        localStorage.setItem("profile", JSON.stringify(userProfileData));
-    
+        if (!userProfileData.error) {
+            localStorage.setItem("profile", JSON.stringify(userProfileData));
+        }
         // moved the second part to "getPlaylists"
     
     } catch (error) {
@@ -138,19 +139,38 @@ const SpotifyService = {
         const user_id = profile.id;
         // crates url for creating a playlist
         // url is an endpoint that creates an empty playlist for the user
-        const url = `https://api.spotify.com/v1/users/${user_id}/playlists`;
-        // creates options object for creating a playlist, headers and body
-        const options = {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${access_token}`,
-                "Content-Type": "application/json"
-            },
-            // we have to stringify the body to JSON because the content is json and fetch only accepts strings
-            body: JSON.stringify({
-                name: playlist.name
-            })
-        };
+        let url;
+        let options;
+        if (playlist.id) {
+            console.log("playlistId", playlist.id);
+            // If playlist has an ID, update an existing playlist
+            url = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist.id}`;
+            options = {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: playlist.name
+                })
+            };
+        } else {
+
+            url = `https://api.spotify.com/v1/users/${user_id}/playlists`;
+            // creates options object for creating a playlist, headers and body
+            options = {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                    "Content-Type": "application/json"
+                },
+                // we have to stringify the body to JSON because the content is json and fetch only accepts strings
+                body: JSON.stringify({
+                    name: playlist.name
+                })
+            };
+        }
         // fetch sends a POST request to the url and returns a promise. 
         // This saves an empty playlist to the user's account.
         return fetch(url, options)
@@ -158,15 +178,16 @@ const SpotifyService = {
             // but the response has not been read yet. 
             // To read the response, we need to convert it to json. 
             // Response.json() is an asyncronous function/method that also returns a promise.
-            .then(response => response.json())
+            .then(response => playlist.id ?  {} : response.json()) // the PUT does not return a response body
             // response.json resolves with jsonResponse.
             // once response.json resolves, we use jsonResponse to get the playlist id and create a new url (to do what we write in the function)
             // here we are adding tracks to the playlist from the selected tracks we picked in the search results to the playlist we created
             .then(jsonResponse => {
-                const playlist_id = jsonResponse.id;
-                const url = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`;
-                const options = {
-                    method: "POST",
+                const playlist_id = playlist.id || jsonResponse.id;
+                const method = playlist.id ? "PUT" : "POST";
+                const tracksUrl = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`;
+                const tracksOptions = {
+                    method: method,
                     headers: {
                         Authorization: `Bearer ${access_token}`,
                         "Content-Type": "application/json"
@@ -176,7 +197,7 @@ const SpotifyService = {
                     })
                 };
                 // this fetch saves the playlist with the tracks we picked in our playlist
-                return fetch(url, options);
+                return fetch(tracksUrl, tracksOptions);
                 // need to update this method so that it updates an existing playlist line 161-174
                 // when I pass a playlist that I want to update I need to include the id of the playlist 
                 // when it gets passed into this method

@@ -46,7 +46,7 @@ function App() {
 
     if(!SpotifyService.isAuthorized()){
       SpotifyService.authorize();
-    }else{
+    } else {
       console.log('save!');
       SpotifyService.save(playlist).then((data) => {
         console.log('data:', data);
@@ -72,15 +72,16 @@ function App() {
       if (data) {
         console.log('Loaded Playlist:', data);
         // Extract relevant playlist data (if needed)
-        const formattedData = {
+/*         const formattedData = {
           name: data.name,
           tracks: data.tracks
-        };
+        }; */
         // Perform any additional processing on formattedData
         // Set the playlist state variable using the formatted data
-        setPlaylist(formattedData);
+        // setPlaylist(formattedData);
+        setPlaylist(data);
         
-        console.log('Loaded Playlist:', formattedData);
+        console.log('Loaded Playlist:', data);
       } else {
         console.log('Failed to load playlist.');
       }
@@ -119,7 +120,7 @@ function App() {
 
     if(profile){
       const parsedProfile = JSON.parse(profile);
-      const profileAvatar = parsedProfile?.images[0].url;
+      const profileAvatar = parsedProfile?.images?.[0].url;
       
       const buttonStyle = {
         backgroundImage: `url('${profileAvatar}')`,
